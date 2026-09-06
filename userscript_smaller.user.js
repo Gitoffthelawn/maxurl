@@ -23145,7 +23145,7 @@ var __generator = (this && this.__generator) || function(thisArg, body) {
 				.replace(/(:\/\/[^/]*\/)x\/+r\/+[wh][0-9]+\/+i\/+/, "$1i/");
 			if (newsrc !== src)
 				return newsrc;
-			newsrc = src.replace(/^[a-z]+:\/\/[^/]+\/+lo\/+mysterio\/+api\/+[0-9a-f]+\/+.*\/(https?:[^/]+)(?:[?#].*)?$/, "$1");
+			newsrc = src.replace(/^[a-z]+:\/\/[^/]+\/+lo\/+mysterio\/+api\/+[0-9a-f]+\/+.*\/(https?(?::|%3A)[^/]+)(?:[?#].*)?$/, "$1");
 			if (newsrc !== src)
 				return decodeURIComponent(newsrc);
 		}
@@ -39310,6 +39310,7 @@ var __generator = (this && this.__generator) || function(thisArg, body) {
 			domain_nowww === "18porn.sex" ||
 			domain_nowww === "x-x-x.tube" ||
 			domain_nowww === "x-fetish.tube" ||
+			domain_nowww === "inxxx.com" ||
 			domain_nosub === "mylust.com" ||
 			domain_nosub === "yourlust.com" ||
 			domain_nowww === "pornrewind.com") {
@@ -39446,6 +39447,7 @@ var __generator = (this && this.__generator) || function(thisArg, body) {
 				domain_nosub === "saintporn.com" ||
 				domain_nosub === "thehornygay.com" ||
 				domain_nosub === "everydayporn.com" ||
+				domain_nosub === "inxxx.com" ||
 				domain_nosub === "thisvid.com") {
 				videos_component = "embed";
 				addslash = "";
@@ -42472,7 +42474,6 @@ var __generator = (this && this.__generator) || function(thisArg, body) {
 				.replace(/\/castimagethumb-([0-9]+\.[^/.]*)$/, "/castimage-$1");
 		}
 		if (domain === "i.ucrazy.ru") return src.replace(/(\/files\/+(?:i|pics)\/+[0-9]{4}\.[0-9]{1,2}(?:\.[0-9]{1,2})?\/)thumbs\//, "$1");
-		if (domain_nowww === "athinorama.gr") return src.replace(/(\/articles\/[0-9]+\/[^/.]*\.[^/.]*)\.ashx\?.*$/, "$1");
 		if (domain_nosub === "spiiky.com" && domain.match(/^img[0-9]*\./)) {
 			return src.replace(/\.ashx\?.*/, "");
 		}
@@ -64565,7 +64566,12 @@ var __generator = (this && this.__generator) || function(thisArg, body) {
 		}
 		if (domain === "content.rozetka.com.ua") return src.replace(/(\/images\/)(?:preview|big)(\/)/, "$1original$2");
 		if (domain_nowww === "verbatim-marcom.com") return src.replace(/(\/view-product-image-id)\/png-thumbnail_\d+(\/\d+)/, "$1$2");
-		if (domain === "static.bhphoto.com") return src.replace(/(\/images\/+images)[0-9]+x[0-9]+\//, "$12500x2500/");
+		if (domain === "static.bhphoto.com" ||
+			domain_nowww === "bhphotovideo.com") {
+			return src
+				.replace(/(\/images\/+(?:multiple_images\/+)?images)1[0-9]{3}x1[0-9]{3}\//, "$12500x2500/")
+				.replace(/(\/images\/+(?:multiple_images\/+)?images)[0-9]{2,3}x[0-9]{2,3}\//, "$11000x1000/");
+		}
 		if (domain === "cdnstatic.rg.ru") return src.replace(/\/(?:resize|crop)[0-9]+x[0-9]+\/+uploads\/+/, "/uploads/");
 		if (domain_nowww === "sport24.gr") return src.replace(/\/img\/+[0-9]+\/+([0-9]+)\/+[0-9]+\/+[a-z]+[0-9]*\/+[0-9]+\/+(?:[0-9]+\/+)?([^/]+(?:[?#].*)?)$/, "/img/app/$1/0/o/0/0/$2");
 		if (domain === "s74794.cdn.ngenix.net" ||
@@ -65128,6 +65134,8 @@ var __generator = (this && this.__generator) || function(thisArg, body) {
 			}
 		}
 		if (googlestorage_container === "mediaslide-us" ||
+			domain === "storage-us.mediaslide.com" ||
+			domain === "storage-europe.mediaslide.com" ||
 			googlestorage_container === "mediaslide-europe") {
 			newsrc = src.replace(/(\/(?:news_)?pictures\/+[0-9]+\/+[0-9]+\/+)(?:large|profile|square)-/, "$1");
 			if (newsrc !== src)
@@ -68304,7 +68312,7 @@ var __generator = (this && this.__generator) || function(thisArg, body) {
 		if (domain === "akamai.sscdn.co") {
 			return src
 				.replace(/(\/letras\/+)[0-9]+x[0-9]+\/+/, "$10x0/")
-				.replace(/(\/uploadfile\/+letras\/+fotos\/.*)-tb[0-9]+\./, "$1.");
+				.replace(/(\/uploadfile\/+letras\/+(?:fotos|albuns)\/.*)-tb_?[0-9]+\./, "$1.");
 		}
 		if (domain_nowww === "virtual-history.com") return src.replace(/(\/movie\/+card\/+[0-9]+\/+)thumb\/+([^/]+)(?:[?#].*)?$/, "$1large/$2");
 		if (domain_nowww === "kick.com") {
@@ -70200,9 +70208,13 @@ var __generator = (this && this.__generator) || function(thisArg, body) {
 			return src.replace(/\/resize\/+[^/]+\/+upload\//, "/upload/");
 		}
 		if (domain === "files.madamefigaro.gr" ||
+			domain_nowww === "athinorama.gr" ||
 			domain_nowww === "esquire.com.gr") {
-			return src.replace(/(\/content\/+imagesdatabase\/+)(?:p\/+.*?\/)?([0-9a-f]{2}\/+[0-9a-f]{10,}\.[a-z]+)(?:[?#].*)?$/i, "$1$2");
+			newsrc = src.replace(/(\/content\/+imagesdatabase\/+)(?:p\/+.*?\/)?([0-9a-f]{2}\/+[0-9a-f]{10,}\.[a-z]+)(?:[?#].*)?$/i, "$1$2");
+			if (newsrc !== src)
+				return newsrc;
 		}
+		if (domain_nowww === "athinorama.gr") return src.replace(/(\/articles\/[0-9]+\/[^/.]*\.[^/.]*)\.ashx\?.*$/, "$1");
 		if (domain === "ids.si.edu") {
 			match = src.match(/\/ids\/+deliveryService\?id=([^&]+)$/);
 			if (match) {
@@ -73071,7 +73083,7 @@ var __generator = (this && this.__generator) || function(thisArg, body) {
 				return "https://d1mf2gqihyoof.cloudfront.net/" + newsrc;
 		}
 		if (domain_nosub === "nsfw.xxx" && /^cdn[0-9]*\./.test(domain)) {
-			return src.replace(/(\/gallery\/+)[0-9]+\/+([^/]+)(?:[?#].*)?$/, "$1$2");
+			return src.replace(/(\/(?:gallery|photo)\/+)[0-9]+\/+([^/]+)(?:[?#].*)?$/, "$1$2");
 		}
 		if (domain_nosub === "img-bcg.eu") {
 			return {
@@ -74508,6 +74520,8 @@ var __generator = (this && this.__generator) || function(thisArg, body) {
 					bad: "mask"
 				};
 		}
+		if (domain === "images.celebritymoviearchive.com") return src.replace(/(\/thumbs\/+)hd\/+([^/]+)\/+[0-9]+\/+(.*)-[0-9]+\./, "$1$2/$3.");
+		if (domain_nowww === "celebnic.com") return src.replace(/\/thumbnails_original\/+/, "/original_files/");
 		if (src.match(/\/ImageGen\.ashx\?/)) {
 			return urljoin(src, src.replace(/.*\/ImageGen\.ashx.*?image=([^&]*).*/, "$1"));
 		}
