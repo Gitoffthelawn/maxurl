@@ -35621,7 +35621,10 @@ var $$IMU_EXPORT$$;
 			// thanks to anonymous for reporting:
 			// https://s.yimg.com/lo/mysterio/api/7f32c21ada0f6ed02473210101362134578b16ed14700013a3685b822879509b/lightyear_networkapi/resizefill_w960;quality_80;format_webp/https:%2F%2Fmedia.zenfs.com%2Fen%2Fhello__263%2F5bd02ee813d94c233f99ab77182e351b
 			//   https://media.zenfs.com/en/hello__263/5bd02ee813d94c233f99ab77182e351b
-			newsrc = src.replace(/^[a-z]+:\/\/[^/]+\/+lo\/+mysterio\/+api\/+[0-9a-f]+\/+.*\/(https?:[^/]+)(?:[?#].*)?$/, "$1");
+			// thanks to SFWarriorsfan on reddit for reporting: https://www.reddit.com/r/MaxImage/comments/1u913dv/image_max_url_202660_released_with_popup_icon/p845q1y/
+			// https://s.yimg.com/lo/mysterio/api/bf301d4b50a3b3ec6af58782b02f84a0f1d9beef0164c22cdc3958720502664a/lightyear_networkapi/resizefill_w900_h600%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fhardwood_heroics_234%2F9eb8b3818d608f19bb73a934f2999f62.jpg
+			//   https://media.zenfs.com/en/hardwood_heroics_234/9eb8b3818d608f19bb73a934f2999f62.jpg
+			newsrc = src.replace(/^[a-z]+:\/\/[^/]+\/+lo\/+mysterio\/+api\/+[0-9a-f]+\/+.*\/(https?(?::|%3A)[^/]+)(?:[?#].*)?$/, "$1");
 			if (newsrc !== src)
 				return decodeURIComponent(newsrc);
 		}
@@ -69838,6 +69841,7 @@ var $$IMU_EXPORT$$;
 			domain_nowww === "18porn.sex" ||
 			domain_nowww === "x-x-x.tube" ||
 			domain_nowww === "x-fetish.tube" ||
+			domain_nowww === "inxxx.com" ||
 			// different system
 			// https://static2.tubepornclassic.com/contents/videos_screenshots/1051000/1051741/240x180/1.jpg
 			//domain_nosub === "tubepornclassic.com" ||
@@ -70009,6 +70013,7 @@ var $$IMU_EXPORT$$;
 					   domain_nosub === "saintporn.com" ||
 					   domain_nosub === "thehornygay.com" ||
 					   domain_nosub === "everydayporn.com" ||
+					   domain_nosub === "inxxx.com" ||
 					   domain_nosub === "thisvid.com") {
 				videos_component = "embed";
 				addslash = "";
@@ -76569,12 +76574,6 @@ var $$IMU_EXPORT$$;
 			// https://i.ucrazy.ru/files/pics/2020.11/thumbs/photo16055400400.jpg
 			//   https://i.ucrazy.ru/files/pics/2020.11/photo16055400400.jpg
 			return src.replace(/(\/files\/+(?:i|pics)\/+[0-9]{4}\.[0-9]{1,2}(?:\.[0-9]{1,2})?\/)thumbs\//, "$1");
-		}
-
-		if (domain_nowww === "athinorama.gr") {
-			// http://www.athinorama.gr/lmnts/articles/2523568/emilia%20.jpg.ashx?w=210
-			//   http://www.athinorama.gr/lmnts/articles/2523568/emilia%20.jpg
-			return src.replace(/(\/articles\/[0-9]+\/[^/.]*\.[^/.]*)\.ashx\?.*$/, "$1");
 		}
 
 		if (domain_nosub === "spiiky.com" && domain.match(/^img[0-9]*\./)) {
@@ -119259,14 +119258,22 @@ var $$IMU_EXPORT$$;
 			return src.replace(/(\/view-product-image-id)\/png-thumbnail_\d+(\/\d+)/, "$1$2");
 		}
 
-		if (domain === "static.bhphoto.com") {
+		if (domain === "static.bhphoto.com" ||
+			// thanks to anonymous for reporting:
+			// https://www.bhphotovideo.com/images/images150x150/1547727640_1453015.jpg
+			//   https://www.bhphotovideo.com/images/images2500x2500/1547727640_1453015.jpg
+			domain_nowww === "bhphotovideo.com") {
 			// thanks to karpuzikov on github: https://github.com/qsniyg/maxurl/issues/1083
 			// https://static.bhphoto.com/images/images150x150/1547727640_1453015.jpg
 			//   https://static.bhphoto.com/images/images2500x2500/1547727640_1453015.jpg
+			// https://static.bhphoto.com/images/multiple_images/images500x500/1664354722_IMG_1847915.jpg
+			//   https://static.bhphoto.com/images/multiple_images/images1000x1000/1664354722_IMG_1847915.jpg -- 2500x2500 doesn't work
 			// other:
-			// https://static.bhphoto.com/images/multiple_images/images500x500/1664354722_IMG_1847915.jpg -- 2500x2500 doesn't work, only 1000x1000
 			// https://static.bhphoto.com/images/multiple_images/images2500x2500/1486481459000_IMG_747607.jpg
-			return src.replace(/(\/images\/+images)[0-9]+x[0-9]+\//, "$12500x2500/");
+			// https://www.bhphotovideo.com/images/images500x500/Apple_MA454Z_A_Mac_OS_X_V10_4_1232945482_412492.jpg
+			return src
+				.replace(/(\/images\/+(?:multiple_images\/+)?images)1[0-9]{3}x1[0-9]{3}\//, "$12500x2500/")
+				.replace(/(\/images\/+(?:multiple_images\/+)?images)[0-9]{2,3}x[0-9]{2,3}\//, "$11000x1000/");
 		}
 
 		if (domain === "cdnstatic.rg.ru") {
@@ -120234,6 +120241,16 @@ var $$IMU_EXPORT$$;
 		}
 
 		if (googlestorage_container === "mediaslide-us" ||
+			// thanks to SFWarriorsfan on reddit for reporting: https://www.reddit.com/r/MaxImage/comments/1u913dv/image_max_url_202660_released_with_popup_icon/p84ig4g/
+			// https://storage-us.mediaslide.com/wilhelmina/pictures/8225/34019/large-1648659917-e2667d756910b2cbf3f25ca0949c5163.jpg
+			//   https://storage-us.mediaslide.com/wilhelmina/pictures/8225/34019/1648659917-e2667d756910b2cbf3f25ca0949c5163.jpg
+			domain === "storage-us.mediaslide.com" ||
+			// thanks to SFWarriorsfan on reddit for reporting:
+			// https://storage-europe.mediaslide.com/seedsmanagement/pictures/1537/3647/large-1785239960-6035d1fcacdb2da15b3244b108107fe8.jpg
+			//   https://storage-europe.mediaslide.com/seedsmanagement/pictures/1537/3647/1785239960-6035d1fcacdb2da15b3244b108107fe8.jpg
+			// https://storage-europe.mediaslide.com/perfect/pictures/2042/13069/large-1759747435-c14ae95b2640544baa530299e33e931b.jpg
+			//   https://storage-europe.mediaslide.com/perfect/pictures/2042/13069/1759747435-c14ae95b2640544baa530299e33e931b.jpg
+			domain === "storage-europe.mediaslide.com" ||
 			// https://mediaslide-europe.storage.googleapis.com/uno/pictures/423/24823/large-1489494252-0801f3a26891df01462bae3da66cf8e7.jpg
 			//   https://mediaslide-europe.storage.googleapis.com/uno/pictures/423/24823/1489494252-0801f3a26891df01462bae3da66cf8e7.jpg
 			googlestorage_container === "mediaslide-europe") {
@@ -125890,12 +125907,14 @@ var $$IMU_EXPORT$$;
 			// thanks to anonymous for reporting:
 			// https://akamai.sscdn.co/uploadfile/letras/fotos/7/1/e/0/71e05beee49302b0017d051878a6d163-tb6.jpg
 			//   https://akamai.sscdn.co/uploadfile/letras/fotos/7/1/e/0/71e05beee49302b0017d051878a6d163.jpg
+			// https://akamai.sscdn.co/uploadfile/letras/albuns/8/f/7/7/1344741748876901-tb_180.jpg
+			//   https://akamai.sscdn.co/uploadfile/letras/albuns/8/f/7/7/1344741748876901.jpg
 			// thanks to anonymous for reporting:
 			// https://akamai.sscdn.co/letras/120x120/albuns/a/d/c/6/144101686658484.jpg
 			//   https://akamai.sscdn.co/letras/0x0/albuns/a/d/c/6/144101686658484.jpg
 			return src
 				.replace(/(\/letras\/+)[0-9]+x[0-9]+\/+/, "$10x0/")
-				.replace(/(\/uploadfile\/+letras\/+fotos\/.*)-tb[0-9]+\./, "$1.");
+				.replace(/(\/uploadfile\/+letras\/+(?:fotos|albuns)\/.*)-tb_?[0-9]+\./, "$1.");
 		}
 
 		if (domain_nowww === "virtual-history.com") {
@@ -129834,6 +129853,10 @@ var $$IMU_EXPORT$$;
 		}
 
 		if (domain === "files.madamefigaro.gr" ||
+			// thanks to anonymous for reporting:
+			// https://www.athinorama.gr/Content/ImagesDatabase/p/750x422/crop/both/12/12557c42e6104141891130e12ffb06c8.jpg?quality=81&404=default&v=4
+			//   https://www.athinorama.gr/Content/ImagesDatabase/12/12557c42e6104141891130e12ffb06c8.jpg
+			domain_nowww === "athinorama.gr" ||
 			// https://esquire.com.gr/Content/ImagesDatabase/dd/dd305859aa7b4181b03ee3f615490545.jpg?v=1&maxwidth=760&
 			//   https://esquire.com.gr/Content/ImagesDatabase/dd/dd305859aa7b4181b03ee3f615490545.jpg?quality=100&404=default -- different saturation - modifies the image?
 			//   https://esquire.com.gr/Content/ImagesDatabase/dd/dd305859aa7b4181b03ee3f615490545.jpg
@@ -129845,7 +129868,15 @@ var $$IMU_EXPORT$$;
 			//   https://files.madamefigaro.gr/content/ImagesDatabase/6d/6d4111af00494af38a454b4597d671cd.jpg?quality=100&404=default
 			//   https://files.madamefigaro.gr/Content/ImagesDatabase/6d/6d4111af00494af38a454b4597d671cd.jpg
 			// ?format=png works too, is it needed though?
-			return src.replace(/(\/content\/+imagesdatabase\/+)(?:p\/+.*?\/)?([0-9a-f]{2}\/+[0-9a-f]{10,}\.[a-z]+)(?:[?#].*)?$/i, "$1$2");
+			newsrc = src.replace(/(\/content\/+imagesdatabase\/+)(?:p\/+.*?\/)?([0-9a-f]{2}\/+[0-9a-f]{10,}\.[a-z]+)(?:[?#].*)?$/i, "$1$2");
+			if (newsrc !== src)
+				return newsrc;
+		}
+
+		if (domain_nowww === "athinorama.gr") {
+			// http://www.athinorama.gr/lmnts/articles/2523568/emilia%20.jpg.ashx?w=210
+			//   http://www.athinorama.gr/lmnts/articles/2523568/emilia%20.jpg
+			return src.replace(/(\/articles\/[0-9]+\/[^/.]*\.[^/.]*)\.ashx\?.*$/, "$1");
 		}
 
 		if (domain === "ids.si.edu") {
@@ -132015,6 +132046,8 @@ var $$IMU_EXPORT$$;
 			//   https://image-cdn.nct.vn/radio/images/2023/12/08/w/q/6/Z/1702016452784.png -- 600x300
 			// https://image-cdn.nct.vn/song/2025/09/20/q/r/O/v/1758336947860_500.jpg
 			//   https://image-cdn.nct.vn/song/2025/09/20/q/r/O/v/1758336947860.jpg -- 3000x3000
+			// thanks to anonymous for reporting:
+			// https://image-cdn.nct.vn/playlist/2014/02/25/a/5/0/c/1393310630529_500.jpg
 			newsrc = src.replace(/(\/[0-9]{5,})_[0-9]+(\.[a-z]+)(?:[?#].*)?$/, "$1$2");
 			if (newsrc !== src) {
 				get_image_size(newsrc, function(x, y) {
@@ -134183,7 +134216,7 @@ var $$IMU_EXPORT$$;
 			// thanks to anonymous for reporting:
 			// https://cdn31.nsfw.xxx/gallery/480/XENUQwFJSldfQ0lHGVcLDSccADhrCTEZBxU.jpg
 			//   https://cdn31.nsfw.xxx/gallery/XENUQwFJSldfQ0lHGVcLDSccADhrCTEZBxU.jpg
-			return src.replace(/(\/gallery\/+)[0-9]+\/+([^/]+)(?:[?#].*)?$/, "$1$2");
+			return src.replace(/(\/(?:gallery|photo)\/+)[0-9]+\/+([^/]+)(?:[?#].*)?$/, "$1$2");
 		}
 
 		if (domain_nosub === "img-bcg.eu") {
@@ -136456,6 +136489,20 @@ var $$IMU_EXPORT$$;
 					url: src,
 					bad: "mask"
 				};
+		}
+
+		if (domain === "images.celebritymoviearchive.com") {
+			// thanks to anonymous for reporting:
+			// https://images.celebritymoviearchive.com/members/thumbs/hd/a/3014/Anne%20Hathaway%20-%20Havoc%20-%201_1-500.jpg
+			//   https://images.celebritymoviearchive.com/members/thumbs/a/Anne%20Hathaway%20-%20Havoc%20-%201_1.jpg
+			return src.replace(/(\/thumbs\/+)hd\/+([^/]+)\/+[0-9]+\/+(.*)-[0-9]+\./, "$1$2/$3.");
+		}
+
+		if (domain_nowww === "celebnic.com") {
+			// thanks to anonymous for reporting:
+			// https://celebnic.com/thumbnails_original/files/images/vthumbs/h/2987a4b49e37503f5066bc463cecd205_full.jpg
+			//   https://celebnic.com/original_files/files/images/vthumbs/h/2987a4b49e37503f5066bc463cecd205_full.jpg
+			return src.replace(/\/thumbnails_original\/+/, "/original_files/");
 		}
 
 
